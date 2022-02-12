@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel
+spec:
+  selector:
+    matchLabels:
+      app: laravel
+  template:
+    metadata:
+      labels:
+        app: laravel
+    spec:
+      containers:
+      - image: myapp
+        name: laravel
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        livenessProbe:
+          tcpSocket:
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 20
+      - name: fluentd
+        image: quay.io/fluentd_elasticsearch/fluentd
+        env:
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/fluent/config.d
+      volumes:
+      - name: config-volume
+        configMap:
+           name: fluentd-conf
