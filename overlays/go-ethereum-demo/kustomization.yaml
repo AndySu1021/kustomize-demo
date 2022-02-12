@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+- ../../base/go-ethereum-demo
+- ../../base
+images:
+- name: myapp
+  newName: gcr.io/${PROJECT_ID}/go-ethereum-demo
+  newTag: ${TAG}
+namespace: go

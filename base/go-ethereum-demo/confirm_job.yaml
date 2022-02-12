@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: go-ethereum-demo-confirm
+spec:
+  schedule: "6 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: go-ethereum-demo-confirm
+            image: myapp
+            command: ["./confirm"]
+            imagePullPolicy: Always
+          restartPolicy: OnFailure

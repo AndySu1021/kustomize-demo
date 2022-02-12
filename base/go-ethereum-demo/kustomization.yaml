@@ -1,0 +1,6 @@
+resources:
+- deployment.yaml
+- service.yaml
+- ingress.yaml
+- scan_job.yaml
+- confirm_job.yaml
